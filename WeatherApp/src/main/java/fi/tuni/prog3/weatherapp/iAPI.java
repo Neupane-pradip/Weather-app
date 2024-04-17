@@ -26,5 +26,5 @@ public interface iAPI {
      * @param lon The longitude of the location.
      * @return String.
      */
-    public String getForecast(double lat, double lon);
+    public String[][] getForecast(double lat, double lon);
 }
