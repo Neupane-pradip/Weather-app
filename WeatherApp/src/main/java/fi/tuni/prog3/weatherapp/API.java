@@ -13,7 +13,7 @@ import com.google.gson.JsonParser;
 import static java.lang.Math.abs;
 import java.time.Instant;
 
-public class APIAccess implements iAPI {
+public class API implements iAPI {
     
     private String[][] forecast;
     private String current_weather;
@@ -27,7 +27,7 @@ public class APIAccess implements iAPI {
     private static final int TIME_START_INDEX = 11;
     private static final int TIME_END_INDEX = 16;
     
-    public APIAccess(){
+    public API(){
         forecast = new String[2][];
         forecast[DAILY_FORECAST_INDEX ] = new String [FORECAST_DAYS];
         forecast[HOURLY_FORECAST_INDEX] = new String [FORECAST_HOURS];
@@ -110,21 +110,20 @@ public class APIAccess implements iAPI {
             BufferedReader readerHour = new BufferedReader(new InputStreamReader (connectionHour.getInputStream()));
             BufferedReader readerDay = new BufferedReader(new InputStreamReader (connectionDay.getInputStream()));
             
-            String[] result = new String[2];
-            result[0] = "";
-            result[1] = "";
+            String resultDay = "";
+            String resultHour = "";
             String line = "";
             
             while ((line = readerDay.readLine()) != null){
-                result[0] += line;
+                resultDay += line;
             }
             while ((line = readerHour.readLine()) != null){
-                result[1] += line;
+                resultHour += line;
             }
             
             JsonParser parse = new JsonParser();
-            JsonObject dataDay = (JsonObject) parse.parse(result[0]);
-            JsonObject dataHour = (JsonObject) parse.parse(result[1]);
+            JsonObject dataDay = (JsonObject) parse.parse(resultDay);
+            JsonObject dataHour = (JsonObject) parse.parse(resultHour);
             saveForecastData(dataDay, dataHour);
         }
         catch(IOException err){
