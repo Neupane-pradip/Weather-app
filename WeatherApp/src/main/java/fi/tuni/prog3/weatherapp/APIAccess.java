@@ -17,6 +17,7 @@ public class APIAccess implements iAPI {
     private String current_weather = "";
     
     private static final String API_key = "f52059b774ff5f7508c3b449c6357b9c";
+    private static final String FORECAST_DAYS = "7";
     private static final String test_coord_lon = "23.7609";
     private static final String test_coord_lat = "61.4981";
     
@@ -83,6 +84,50 @@ public class APIAccess implements iAPI {
         current_weather = result;
         has_current_info = true;
     }
+    
+    private void callAPIForForecast(double latitude, double longitude){
+        
+        String URL_stringHour = String.format(
+                "https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=%f&lon=%f&appid=%s&units=metric"
+                ,latitude, longitude, API_key);
+        String URL_stringDay = String.format(
+                "https://api.openweathermap.org/data/2.5/forecast/daily?lat=%f&lon=%f&cnt=%s&appid=%s&units=metric"
+                ,latitude, longitude, FORECAST_DAYS, API_key);
+        try{
+            URL urlHour = new URL(URL_stringHour);
+            URL urlDay = new URL(URL_stringDay);
+            URLConnection connectionHour = urlHour.openConnection();
+            URLConnection connectionDay = urlDay.openConnection();
+            BufferedReader readerHour = new BufferedReader(new InputStreamReader (connectionHour.getInputStream()));
+            BufferedReader readerDay = new BufferedReader(new InputStreamReader (connectionDay.getInputStream()));
+            
+            String[] result = new String[2];
+            result[0] = "";
+            result[1] = "";
+            String line = "";
+            
+            while ((line = readerDay.readLine()) != null){
+                result[0] += line;
+            }
+            while ((line = readerHour.readLine()) != null){
+                result[1] += line;
+            }
+            
+            JsonParser parse = new JsonParser();
+            JsonObject dataDay = (JsonObject) parse.parse(result[0]);
+            JsonObject dataHour = (JsonObject) parse.parse(result[1]);
+            saveForecastData(dataDay, dataHour);
+        }
+        catch(IOException err){
+
+        }
+    }
+    
+    private void saveForecastData(JsonObject dataDay, JsonObject dataHour){
+        
+    }
+    
+    
     private String UTC_UNIXConverter(String input, long timeZone){
         Instant time = Instant.ofEpochSecond(Long.parseLong(input) + timeZone);
         return time.toString().substring(11,16);
@@ -95,7 +140,10 @@ public class APIAccess implements iAPI {
 
     @Override
     public String getCurrentWeather(double lat, double lon) {
-        callAPIForCurrent(lat, lon);
+        if (!has_current_info){
+           callAPIForCurrent(lat, lon); 
+        }
+        return current_weather;
     }
 
     @Override
