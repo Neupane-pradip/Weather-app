@@ -13,18 +13,19 @@ import java.time.Instant;
 
 public class APIAccess implements iAPI {
     
+    private boolean has_current_info = false;
+    private String current_weather = "";
+    
     private static final String API_key = "f52059b774ff5f7508c3b449c6357b9c";
     private static final String test_coord_lon = "23.7609";
     private static final String test_coord_lat = "61.4981";
     
-    public APIAccess(){
-        callAPIForCurrent();
-    }
+    public APIAccess(){}
     
-    private void callAPIForCurrent(){
+    private void callAPIForCurrent( double latitude, double longitude){
         String URL_string = String.format(
-                "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric"
-                ,test_coord_lat, test_coord_lon, API_key);
+                "https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=%s&units=metric"
+                ,latitude, longitude, API_key);
         try{
             URL url = new URL(URL_string);
             URLConnection connection = url.openConnection();
@@ -79,7 +80,8 @@ public class APIAccess implements iAPI {
         result += UTC_UNIXConverter(system.get("sunrise").getAsString(), timeZoneOffset) + ";";
         result += UTC_UNIXConverter(system.get("sunset").getAsString(), timeZoneOffset);
         
-        System.out.println(result);
+        current_weather = result;
+        has_current_info = true;
     }
     private String UTC_UNIXConverter(String input, long timeZone){
         Instant time = Instant.ofEpochSecond(Long.parseLong(input) + timeZone);
@@ -93,7 +95,7 @@ public class APIAccess implements iAPI {
 
     @Override
     public String getCurrentWeather(double lat, double lon) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        callAPIForCurrent(lat, lon);
     }
 
     @Override
