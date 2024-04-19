@@ -25,6 +25,7 @@ public class APIAccess implements iAPI {
     private static final int FORECAST_HOURS = 96;
     private static final int DAILY_FORECAST_INDEX = 0;
     private static final int HOURLY_FORECAST_INDEX = 1;
+    private static final String API_LOCATION_RESPONSE_LIMIT = "1";
     private static final String test_coord_lon = "23.7609";
     private static final String test_coord_lat = "61.4981";
     
@@ -196,8 +197,35 @@ public class APIAccess implements iAPI {
     }
 
     @Override
-    public String lookUpLocation(String loc) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String lookUpLocation(String location) {
+        
+        String URL_string = String.format(
+                "http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=%s&appid=%s"
+                ,location, API_LOCATION_RESPONSE_LIMIT, API_key);
+        try{
+            URL url = new URL(URL_string);
+            URLConnection connection = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader (connection.getInputStream()));
+            
+            String result = "";
+            String line = "";
+            while ((line = reader.readLine()) != null){
+                result += line;
+            }
+            
+            JsonParser parse = new JsonParser();
+            JsonArray cities = (JsonArray) parse.parse(result);
+            JsonObject cityInfo = cities.get(0).getAsJsonObject();
+            
+            
+            return String.format("%s;%s",
+                    cityInfo.get("lat").getAsString(),
+                    cityInfo.get("lon").getAsString());
+        }
+        catch(IOException err){
+            System.out.println("haistapaska");
+        }
+        return "";
     }
 
     @Override
