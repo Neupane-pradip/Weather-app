@@ -2,6 +2,7 @@
 package fi.tuni.prog3.weatherapp;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,12 +17,22 @@ public class APIAccess implements iAPI {
     private boolean has_current_info = false;
     private String current_weather = "";
     
+    private boolean has_forecast_info = false;
+    private String[][] forecast;
+    
     private static final String API_key = "f52059b774ff5f7508c3b449c6357b9c";
-    private static final String FORECAST_DAYS = "7";
+    private static final int FORECAST_DAYS = 7;
+    private static final int FORECAST_HOURS = 96;
+    private static final int DAILY_FORECAST_INDEX = 0;
+    private static final int HOURLY_FORECAST_INDEX = 1;
     private static final String test_coord_lon = "23.7609";
     private static final String test_coord_lat = "61.4981";
     
-    public APIAccess(){}
+    public APIAccess(){
+        forecast = new String[2][];
+        forecast[DAILY_FORECAST_INDEX ] = new String [FORECAST_DAYS];
+        forecast[HOURLY_FORECAST_INDEX] = new String [FORECAST_HOURS];
+    }
     
     private void callAPIForCurrent( double latitude, double longitude){
         String URL_string = String.format(
@@ -91,7 +102,7 @@ public class APIAccess implements iAPI {
                 "https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=%f&lon=%f&appid=%s&units=metric"
                 ,latitude, longitude, API_key);
         String URL_stringDay = String.format(
-                "https://api.openweathermap.org/data/2.5/forecast/daily?lat=%f&lon=%f&cnt=%s&appid=%s&units=metric"
+                "https://api.openweathermap.org/data/2.5/forecast/daily?lat=%f&lon=%f&cnt=%d&appid=%s&units=metric"
                 ,latitude, longitude, FORECAST_DAYS, API_key);
         try{
             URL urlHour = new URL(URL_stringHour);
@@ -119,12 +130,63 @@ public class APIAccess implements iAPI {
             saveForecastData(dataDay, dataHour);
         }
         catch(IOException err){
-
+            
         }
     }
     
     private void saveForecastData(JsonObject dataDay, JsonObject dataHour){
         
+        int index = 0;
+        String result = "";
+        
+        for (JsonElement day : dataDay.get("list").getAsJsonArray()){
+            
+            JsonArray weather = day.getAsJsonObject().getAsJsonArray("weather");
+            result += weather.get(0).getAsJsonObject().get("main").getAsString() + ";";
+            
+            JsonObject temperatures = day.getAsJsonObject().get("temp").getAsJsonObject();
+            result += temperatures.get("min").getAsString() + ";";
+            result += temperatures.get("max").getAsString() + ";";
+            
+            result += day.getAsJsonObject().get("clouds").getAsString() + ";";
+            result += day.getAsJsonObject().get("speed").getAsString() + ";";
+            
+            if (day.getAsJsonObject().has("rain")){
+                result += day.getAsJsonObject().get("rain").getAsString();
+            }
+            result += ";";
+            if (day.getAsJsonObject().has("snow")){
+                result += day.getAsJsonObject().get("snow").getAsString();
+            }
+            forecast[DAILY_FORECAST_INDEX][index] = result;
+            result = "";
+            index++;
+        }
+        index = 0;
+        
+        for (JsonElement hour : dataHour.get("list").getAsJsonArray()){
+            
+            JsonArray weather = hour.getAsJsonObject().getAsJsonArray("weather");
+            result += weather.get(0).getAsJsonObject().get("main").getAsString() + ";";
+            
+            JsonObject main = hour.getAsJsonObject().get("main").getAsJsonObject();
+            result += main.get("temp").getAsString() + ";";
+            
+            result += hour.getAsJsonObject().get("clouds").getAsJsonObject().get("all").getAsString() + ";";
+            result += hour.getAsJsonObject().get("wind").getAsJsonObject().get("speed").getAsString() + ";";
+            
+            if (hour.getAsJsonObject().has("rain")){
+                result += hour.getAsJsonObject().get("rain").getAsJsonObject().get("1h").getAsString();
+            }
+            result += ";";
+            if (hour.getAsJsonObject().has("snow")){
+                result += hour.getAsJsonObject().get("snow").getAsJsonObject().get("1h").getAsString();
+            }
+            forecast[HOURLY_FORECAST_INDEX][index] = result;
+            result = "";
+            index++;
+        }
+        has_forecast_info = true;
     }
     
     
@@ -148,7 +210,10 @@ public class APIAccess implements iAPI {
 
     @Override
     public String[][] getForecast(double lat, double lon) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (!has_forecast_info){
+            callAPIForForecast(lat, lon);
+        }
+        return forecast;
     }
     
 }
