@@ -15,11 +15,8 @@ import java.time.Instant;
 
 public class APIAccess implements iAPI {
     
-    private boolean has_current_info = false;
-    private String current_weather = "";
-    
-    private boolean has_forecast_info = false;
     private String[][] forecast;
+    private String current_weather;
     
     private static final String API_KEY = "f52059b774ff5f7508c3b449c6357b9c";
     private static final int FORECAST_DAYS = 7;
@@ -53,14 +50,14 @@ public class APIAccess implements iAPI {
             
             JsonParser parse = new JsonParser();
             JsonObject data = (JsonObject) parse.parse(result);
-            saveCurrentData(data);
+            getCurrentData(data);
         }
         catch(IOException err){
             throw new Exception("API call was unsuccessful");
         }
     }
     
-    private void saveCurrentData(JsonObject data){
+    private void getCurrentData(JsonObject data){
         
         String result = "";
         
@@ -95,7 +92,6 @@ public class APIAccess implements iAPI {
         result += UTC_UNIXConverter(system.get("sunset").getAsString(), timeZoneOffset);
         
         current_weather = result;
-        has_current_info = true;
     }
     
     private void callAPIForForecast(double latitude, double longitude) throws Exception{
@@ -137,7 +133,7 @@ public class APIAccess implements iAPI {
     }
     
     private void saveForecastData(JsonObject dataDay, JsonObject dataHour){
-        
+            
         int index = 0;
         String result = "";
         
@@ -188,7 +184,6 @@ public class APIAccess implements iAPI {
             result = "";
             index++;
         }
-        has_forecast_info = true;
     }
     
     
@@ -237,9 +232,7 @@ public class APIAccess implements iAPI {
         if (abs(lat) > 90 || abs(lon) > 180){
             throw new IllegalArgumentException();
         }  
-        if (!has_current_info){
-           callAPIForCurrent(lat, lon); 
-        }
+        callAPIForCurrent(lat, lon); 
         return current_weather;
     }
 
@@ -249,10 +242,7 @@ public class APIAccess implements iAPI {
         if (abs(lat) > 90 || abs(lon) > 180){
             throw new IllegalArgumentException();
         }        
-        if (!has_forecast_info){
-            callAPIForForecast(lat, lon);
-        }
+        callAPIForForecast(lat, lon);
         return forecast;
     }
-    
 }
