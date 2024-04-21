@@ -14,7 +14,7 @@ import static java.lang.Math.abs;
 import java.time.Instant;
 
 /**
- * @author Hirvijärvi
+ * @author Kalle Hirvijärvi
  * 
  * Makes api calls for current weather, weather forecast and goelocation,
  * and converts the responses from Json format to Strings or String arrays.
