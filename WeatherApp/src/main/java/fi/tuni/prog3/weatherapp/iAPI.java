@@ -23,10 +23,10 @@ public interface iAPI {
     public String getCurrentWeather(double lat, double lon) throws Exception;
 
     /**
-     * Returns a forecast for the given coordinates.
+     * Returns a forecast for the given coordinates as two string arrays
      * @param lat The latitude of the location.
      * @param lon The longitude of the location.
-     * @return String.
+     * @return String[][].
      * @throws java.lang.Exception
      */
     public String[][] getForecast(double lat, double lon) throws Exception;
