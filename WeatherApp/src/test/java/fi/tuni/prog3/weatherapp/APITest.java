@@ -63,8 +63,8 @@ public class APITest {
         
         // test format for firt, last, 13th and 56th element
         hourlyForecastDataFrameTest(result[1][0].split(";"));
-        hourlyForecastDataFrameTest(result[1][12].split(";"));
-        hourlyForecastDataFrameTest(result[1][55].split(";"));
+        hourlyForecastDataFrameTest(result[1][6].split(";"));
+        hourlyForecastDataFrameTest(result[1][15].split(";"));
         hourlyForecastDataFrameTest(result[1][result[1].length - 1].split(";"));
     }
     
