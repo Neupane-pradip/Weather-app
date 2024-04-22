@@ -27,7 +27,7 @@ public class API implements iAPI {
     
     private static final String API_KEY = "f52059b774ff5f7508c3b449c6357b9c";
     private static final int FORECAST_DAYS = 7;
-    private static final int FORECAST_HOURS = 96;
+    private static final int FORECAST_HOURS = 24;
     private static final int DAILY_FORECAST_INDEX = 0;
     private static final int HOURLY_FORECAST_INDEX = 1;
     private static final int API_LOCATION_RESPONSE_LIMIT = 1;
@@ -131,8 +131,8 @@ public class API implements iAPI {
     private void callAPIForForecast(double latitude, double longitude) throws Exception{
         
         String URL_stringHour = String.format(
-                "https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=%f&lon=%f&appid=%s&units=metric"
-                ,latitude, longitude, API_KEY);     // <- API call parameters
+                "https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=%f&lon=%f&cnt=%d&appid=%s&units=metric"
+                ,latitude, longitude, FORECAST_HOURS, API_KEY);     // <- API call parameters
 
         String URL_stringDay = String.format(
                 "https://api.openweathermap.org/data/2.5/forecast/daily?lat=%f&lon=%f&cnt=%d&appid=%s&units=metric"
