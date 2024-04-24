@@ -12,10 +12,10 @@ import java.nio.file.Paths;
  */
 public class ReadWriteToFile implements iReadAndWriteToFile {
 
-    private String dataToWrite;
-    private String currentJsonData;
-    private String hourlyJsonData;
-    private String dailyJsonData;
+    private String DataToWrite;
+    private String CurrentJsonData;
+    private String HourlyJsonData;
+    private String DailyJsonData;
 
     /**
      * Sets the data to be written to a file.
@@ -24,7 +24,7 @@ public class ReadWriteToFile implements iReadAndWriteToFile {
      */
   
     public void setDataToWrite(String data) {
-        this.dataToWrite = data;
+        this.DataToWrite = data;
     }
 
     /**
@@ -42,19 +42,19 @@ public class ReadWriteToFile implements iReadAndWriteToFile {
                 for (Path file : stream) {
                     String fileContent = Files.readString(file);
                     switch (file.getFileName().toString()) {
-                        case "currentWeatherData":
-                            currentJsonData = fileContent;
+                        case "CurrentWeatherData":
+                            CurrentJsonData = fileContent;
                             break;
-                        case "hourlyWeatherData":
-                            hourlyJsonData = fileContent;
+                        case "HourlyWeatherData":
+                            HourlyJsonData = fileContent;
                             break;
                         default:
-                            dailyJsonData = fileContent;
+                            DailyJsonData = fileContent;
                             break;
                     }
                 }
-                return new String[][]{currentJsonData.split("\n"), hourlyJsonData.split("\n"),
-                dailyJsonData.split("\n")};
+                return new String[][]{CurrentJsonData.split("\n"), HourlyJsonData.split("\n"),
+                DailyJsonData.split("\n")};
             }
         } catch (IOException e) {
             throw new IOException("Error reading from file: " + e.getMessage());
@@ -70,17 +70,17 @@ public class ReadWriteToFile implements iReadAndWriteToFile {
      */
     @Override
     public boolean writeToFile(String fileName) throws IOException {
-        if (dataToWrite == null) {
+        if (DataToWrite == null) {
             throw new IllegalStateException("No data set to write.");
         }
 
-        String folderName = "weatherData";
+        String folderName = "WeatherData";
         Path filePath = Paths.get(folderName, fileName);
 
         try {
             // Make sure the folder exists
             Files.createDirectories(filePath.getParent());  
-            Files.writeString(filePath, dataToWrite);
+            Files.writeString(filePath, DataToWrite);
             return true;
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());

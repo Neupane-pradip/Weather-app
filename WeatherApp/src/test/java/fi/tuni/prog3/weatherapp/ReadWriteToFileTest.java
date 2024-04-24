@@ -7,12 +7,12 @@ public class ReadWriteToFileTest {
         
         // Test reading from files
         ReadWriteToFile readWriteToFile = new ReadWriteToFile();
-        String folderName = "weatherData";
+        String folderName = "WeatherData";
         try {
-            String[][] weatherData = readWriteToFile.readFromFile(folderName);
+            String[][] WeatherData = readWriteToFile.readFromFile(folderName);
             
             // Print the read weather data
-            for (String[] data : weatherData) {
+            for (String[] data : WeatherData) {
                 for (String line : data) {
                     System.out.println(line);
                 }
@@ -22,8 +22,8 @@ public class ReadWriteToFileTest {
         }
 
         // Test writing to a file
-        String dataToWrite = "Test data to be written to a file.";
-        readWriteToFile.setDataToWrite(dataToWrite);
+        String DataToWrite = "Test data to be written to a file.";
+        readWriteToFile.setDataToWrite(DataToWrite);
         String fileName = "testFile.txt";
         try {
             if (readWriteToFile.writeToFile(fileName)) {
