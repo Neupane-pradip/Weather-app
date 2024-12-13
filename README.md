@@ -1,15 +1,4 @@
-# Ohjelmointi 3 projektin tietovarasto
 
-Tämä on ryhmäsi yhteinen tietovarasto projektin tekemistä varten. Varasto sisältää yksinkertaisen
-Maven-muotoisen JavaFX-projektin.
-
-Huomaa, että nyt projektissa on useita jäseniä ja tekemisesi vaikuttaa muiden työhön.
-
-Liitä harjoitustyön materiaalien etätietovarasto 
-(https://course-gitlab.tuni.fi/compcs140-spring2024/group_template_project)
-paikalliseen tietovarastoosi remoteksi, jotta voit ladata mahdollisia muutoksia kurssin tarjoamaan materiaaliin.
-
-Tätä tiedostoa saa (ja on hyväkin) muuttaa projektin aloittamisen jälkeen.
 
 # Programming 3 project repository
 
