@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="843.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.prog3.weatherapp.MainWindowController">
+   <children>
+      <VBox layoutX="-2.0" layoutY="-1.0" prefHeight="620.0" prefWidth="842.0">
+         <children>
+            <Pane id="currentPlaceWindow" fx:id="UpperPane" prefHeight="383.0" prefWidth="842.0">
+               <children>
+                  <Button id="searchButton" fx:id="searchButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
+                  <Button id="quitButton" fx:id="quitButton" layoutX="769.0" layoutY="14.0" mnemonicParsing="false" onAction="#Quit" text="Quit" />
+                  <TextFlow fx:id="CurrentLocation" layoutX="187.0" layoutY="41.0" prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: #A9A9A9;" textAlignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tampere" wrappingWidth="63.6845703125">
+                           <font>
+                              <Font size="42.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </TextFlow>
+                  <Ellipse fill="DARKGRAY" layoutX="83.0" layoutY="153.0" radiusX="57.0" radiusY="80.0" stroke="BLACK" strokeType="INSIDE" />
+                  <TextFlow fx:id="CurrentLocation1" layoutX="187.0" layoutY="153.0" prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: #A9A9A9;" textAlignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="-2 C" wrappingWidth="63.6845703125">
+                           <font>
+                              <Font size="47.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </TextFlow>
+                  <TextFlow layoutX="457.0" layoutY="41.0" lineSpacing="5.0" prefHeight="65.0" prefWidth="163.0" style="-fx-background-color: #A9A9A9;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Highest: 1 C        " wrappingWidth="137.6865234375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lowest: -3 C" wrappingWidth="92.529296875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </TextFlow>
+               </children>
+            </Pane>
+            <ScrollPane id="hourlyForecastWindow" fx:id="hourlyForecast" hbarPolicy="ALWAYS" prefHeight="218.0" prefWidth="842.0" vbarPolicy="NEVER">
+               <content>
+                  <HBox prefHeight="89.0" prefWidth="2006.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly1" strokeType="OUTSIDE" strokeWidth="0.0" text="now" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly2" strokeType="OUTSIDE" strokeWidth="0.0" text="13.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly3" strokeType="OUTSIDE" strokeWidth="0.0" text="14.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly4" strokeType="OUTSIDE" strokeWidth="0.0" text="15.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly5" strokeType="OUTSIDE" strokeWidth="0.0" text="16.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly6" strokeType="OUTSIDE" strokeWidth="0.0" text="17.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly7" strokeType="OUTSIDE" strokeWidth="0.0" text="18.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly8" strokeType="OUTSIDE" strokeWidth="0.0" text="19.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly9" strokeType="OUTSIDE" strokeWidth="0.0" text="20.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly10" strokeType="OUTSIDE" strokeWidth="0.0" text="21.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly11" strokeType="OUTSIDE" strokeWidth="0.0" text="22.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly12" strokeType="OUTSIDE" strokeWidth="0.0" text="23.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly13" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly14" strokeType="OUTSIDE" strokeWidth="0.0" text="01.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly15" strokeType="OUTSIDE" strokeWidth="0.0" text="02.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly16" strokeType="OUTSIDE" strokeWidth="0.0" text="03.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly17" strokeType="OUTSIDE" strokeWidth="0.0" text="04.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly18" strokeType="OUTSIDE" strokeWidth="0.0" text="05.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly19" strokeType="OUTSIDE" strokeWidth="0.0" text="06.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly20" strokeType="OUTSIDE" strokeWidth="0.0" text="07.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly21" strokeType="OUTSIDE" strokeWidth="0.0" text="08.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly22" strokeType="OUTSIDE" strokeWidth="0.0" text="09.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly23" strokeType="OUTSIDE" strokeWidth="0.0" text="10.00" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="hourly24" strokeType="OUTSIDE" strokeWidth="0.0" text="11.00" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </content></ScrollPane>
+            <ScrollPane id="weeklyForecastWindow" fx:id="weeklyForecast" hbarPolicy="ALWAYS" prefHeight="235.0" prefWidth="842.0" vbarPolicy="NEVER">
+               <content>
+                  <HBox prefHeight="153.0" prefWidth="842.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="Date1" strokeType="OUTSIDE" strokeWidth="0.0" text="23.4" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="Date2" strokeType="OUTSIDE" strokeWidth="0.0" text="24.4" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="Date3" strokeType="OUTSIDE" strokeWidth="0.0" text="25.4" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="Date4" strokeType="OUTSIDE" strokeWidth="0.0" text="26.4" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="Date5" strokeType="OUTSIDE" strokeWidth="0.0" text="27.4" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="Date6" strokeType="OUTSIDE" strokeWidth="0.0" text="28.4" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="Date7" strokeType="OUTSIDE" strokeWidth="0.0" text="29.4" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </content></ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
